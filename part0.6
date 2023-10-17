@@ -1,0 +1,38 @@
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+server-->browser: HTML-code
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+server-->browser: spa.js
+
+note over browser:
+browser starts executing spa.js-code
+that requests JSON data from server 
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: [{ content: "HTML is easy", date: "2019-05-23" }, ...]
+
+note over browser:
+browser executes the event handler 
+from spa.js that renders notes to display
+end note
+
+note over browser:
+User enters new note and hits submit
+end note
+
+browser->server: AJAX POST https://studies.cs.helsinki.fi/exampleapp/newnote { content: "SPA Note Content" }
+server-->browser: Success response or new note data
+
+note over browser:
+spa.js handles the response and updates the 
+display without a full page reload
+end note
+
+note over server:
+New notes are not persisted.
+They will be lost after server restart.
+end note
